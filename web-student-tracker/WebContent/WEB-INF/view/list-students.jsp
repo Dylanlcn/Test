@@ -69,7 +69,7 @@
 
 		<c:forEach var = "tempStudent" items="${students}">
 		
-		<tr>
+		
 		
 		<!--  embeded student ID -->
 		
@@ -77,6 +77,15 @@
 	<c:param name ="studentId" value ="${tempStudent.id}"/>
 	
 	</c:url>
+	
+	<c:url var="deleteLink" value="/student/delete">
+	<c:param name ="studentId" value ="${tempStudent.id}"/>
+	
+	</c:url>
+	
+	
+	
+	<tr>
 		<td> ${tempStudent.firstName} </td>
 		<td> ${tempStudent.lastName} </td>
 		<td> ${tempStudent.email} </td>
@@ -84,6 +93,14 @@
 		<td>
 		
 		<a href= "${updateLink}">Update</a>
+		| 
+		<a href= "${deleteLink}"
+				
+			onclick="if (!(confirm('Are you sure you want to delete?'))) return false">Delete</a>
+		
+		
+		
+		
 		
 		</td>
 		

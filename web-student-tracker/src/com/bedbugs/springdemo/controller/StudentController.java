@@ -88,4 +88,18 @@ public String showForForUpdate(@RequestParam("studentId")int theId, Model theMod
 }
 	
 
+@GetMapping("/delete")
+public String deleteStudent(@RequestParam("studentId")int theId) {
+	
+	//delete the student
+	
+	studentService.deleteStudent(theId);
+	
+	return "redirect:/student/list";
+	
+	
+	
+}
+
+
 }

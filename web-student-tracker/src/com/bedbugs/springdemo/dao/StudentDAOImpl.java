@@ -50,7 +50,7 @@ public class StudentDAOImpl implements StudentDAO {
 		
 		Session currentSession = sessionFactory.getCurrentSession();
 		
-		currentSession.save(theStudent);
+		currentSession.saveOrUpdate(theStudent);
 		
 		
 		// save the student into the database
@@ -73,6 +73,26 @@ public class StudentDAOImpl implements StudentDAO {
 		Student theStudent = currentSession.get(Student.class, theId);
 		
 		return theStudent;
+	}
+
+	@Override
+	public void deleteCustomer(int theId) {
+		
+		// get the current hibernate session
+		
+		
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+	
+	
+		
+		// use primary key to delete object
+		
+	Query theQuery=currentSession.createQuery("delete from Student where id=:studentId");
+	
+	theQuery.setParameter("studentId", theId);
+		
+	theQuery.executeUpdate();
 	}
 
 }
