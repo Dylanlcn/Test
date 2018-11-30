@@ -23,7 +23,53 @@ public class StudentController {
 @Autowired
 private StudentService studentService;
 	
+@GetMapping("/home")
+public String home(Model theModel) {
 	
+	
+	return"home";
+}
+	
+
+
+@GetMapping("/student-home")
+public String studenthome(Model theModel) {
+	
+	
+	return"student-home";
+}
+
+
+@GetMapping("/admin-home")
+public String adminhome(Model theModel) {
+	
+	
+	// get customers from the service
+	
+	List<Student> theStudents = studentService.getStudentspend();
+	
+	//add the customers to the model
+
+	theModel.addAttribute("students", theStudents);
+	return"admin-home";
+}
+	
+
+@GetMapping("/admin-all")
+public String adminall(Model theModel) {
+	
+	
+	// get customers from the service
+	
+	List<Student> theStudents = studentService.getStudentsall();
+	
+	//add the customers to the model
+
+	theModel.addAttribute("students", theStudents);
+	return"admin-all";
+}
+	
+
 	
 
 	
@@ -44,8 +90,26 @@ public String listStudent(Model theModel) {
 	return "list-students";
 }
 
+@GetMapping("/appstatus")
+public String appstatus(Model theModel) {
 
-@GetMapping("/showFormForApp")
+
+
+	// get customers from the service
+	
+	
+	List<Student> theStudents = studentService.getStudents();
+	
+	//add the customers to the model
+
+	theModel.addAttribute("students", theStudents);
+	
+	return "app-status";
+	
+}
+
+
+@GetMapping("/students-form")
 public String showFormForAdd(Model theModel)
 {
 	
@@ -55,17 +119,19 @@ public String showFormForAdd(Model theModel)
 	
 	
 
-	return "students-form";
+	return "/students-form";
 	
 }
 	
+
+
 @PostMapping("/saveStudent")
 public String saveStudent(@ModelAttribute("student") Student theStudent)
 {
 
 	studentService.saveStudent(theStudent);
 	
-	return "redirect:/student/list";
+	return "redirect:/student/appstatus";
 	
 }
 
@@ -87,6 +153,33 @@ public String showForForUpdate(@RequestParam("studentId")int theId, Model theMod
 	return "students-form";
 }
 	
+
+@GetMapping("/reject")
+public String rejectStudent(@RequestParam("studentId")int theId) {
+	
+	//delete the student
+	
+	studentService.rejectStudent(theId);
+	
+	return "redirect:/student/admin-home";
+	
+	
+	
+}
+
+
+@GetMapping("/approve")
+public String approveStudent(@RequestParam("studentId")int theId) {
+	
+	//delete the student
+	
+	studentService.approveStudent(theId);
+	
+	return "redirect:/student/admin-home";
+	
+	
+	
+}
 
 @GetMapping("/delete")
 public String deleteStudent(@RequestParam("studentId")int theId) {

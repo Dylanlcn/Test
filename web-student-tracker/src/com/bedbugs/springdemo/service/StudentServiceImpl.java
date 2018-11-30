@@ -58,6 +58,42 @@ public class StudentServiceImpl implements StudentService {
 		
 		
 	}
+
+
+	@Override
+	@Transactional
+	public List<Student> getStudentspend() {
+		return studentDAO.getStudentspend();
+		
+	}
+
+
+	@Override
+	@Transactional
+	public void rejectStudent(int theId) {
+		
+		studentDAO.rejectCustomer(theId);
+		
+		
+	}
+
+
+	@Override
+	@Transactional
+	public void approveStudent(int theId) {
+	
+
+		studentDAO.approveCustomer(theId);
+		
+	}
+
+
+	@Override
+	@Transactional
+	public List<Student> getStudentsall() {
+		
+		return studentDAO.getStudentsall();
+	}
 	
 
 }

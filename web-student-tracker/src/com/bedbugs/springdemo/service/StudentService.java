@@ -13,6 +13,14 @@ public interface StudentService {
 	public Student getStudent(int theId);
 
 	public void deleteStudent(int theId);
+
+	public List<Student> getStudentspend();
+
+	public void rejectStudent(int theId);
+
+	public void approveStudent(int theId);
+
+	public List<Student> getStudentsall();
 	
 	
 }

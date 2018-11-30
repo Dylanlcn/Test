@@ -25,6 +25,11 @@ public class Student {
 	@Column(name="email")
 	private String email;
 	
+	@Column(name="status")
+	private String status="pending";
+	
+	
+	
 	public Student() {}
 
 	public int getId() {
@@ -34,7 +39,17 @@ public class Student {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	
+	public String getStatus() {
+		return status;
+	}	
 
+	
+	public void setStatus(String status) {
+		this.status = "pending";
+	}	
+	
 	public String getFirstName() {
 		return firstName;
 	}

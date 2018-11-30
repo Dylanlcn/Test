@@ -1,1 +1,1 @@
-<% response.sendRedirect("student/list"); %>
+<% response.sendRedirect("student/home"); %>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -29,8 +30,10 @@ public class StudentDAOImpl implements StudentDAO {
 		
 // create a query
 
-		Query<Student> theQuery = currentSession.createQuery("from Student", Student.class);
+		Query<Student> theQuery = currentSession.createQuery("from Student ORDER BY id DESC ", Student.class);
 		
+	     theQuery.setMaxResults(1);
+
 //executing query and get result list
 		
 		List<Student> students = theQuery.getResultList();
@@ -93,6 +96,102 @@ public class StudentDAOImpl implements StudentDAO {
 	theQuery.setParameter("studentId", theId);
 		
 	theQuery.executeUpdate();
+	}
+
+	@Override
+	public List<Student> getStudentspend() {
+
+		
+		// get the current hibernate session
+				Session currentSession = sessionFactory.getCurrentSession();
+				
+				
+				
+		// create a query
+
+				Query<Student> theQuery = currentSession.createQuery("from Student S WHERE S.status ='pending'", Student.class);
+				
+		//executing query and get result list
+				
+				List<Student> students = theQuery.getResultList();
+				
+				
+
+		// return the results		
+				
+				return students;
+	}
+
+	@Override
+	public void rejectCustomer(int theId) {
+		
+	// get the current hibernate session
+		
+		String reject = "rejected";
+		
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+
+		
+		// use primary key to delete object
+		
+	Query theQuery=currentSession.createQuery("update Student set status = :reject"
+			+ " where id = :studentId");
+	
+	
+	theQuery.setParameter("studentId", theId);
+	theQuery.setParameter("reject", reject);
+	theQuery.executeUpdate();
+		
+		
+		
+	}
+
+	@Override
+	@Transactional
+	public void approveCustomer(int theId) {
+
+	// get the current hibernate session
+		
+		String approve = "approved";
+		
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+
+		
+		// use primary key to delete object
+		
+	Query theQuery=currentSession.createQuery("update Student set status = :approve"
+			+ " where id = :studentId");
+	
+	
+	theQuery.setParameter("studentId", theId);
+	theQuery.setParameter("approve", approve);
+	theQuery.executeUpdate();
+	}
+
+	@Override
+	public List<Student> getStudentsall() {
+
+		
+		// get the current hibernate session
+				Session currentSession = sessionFactory.getCurrentSession();
+				
+				
+				
+		// create a query
+
+				Query<Student> theQuery = currentSession.createQuery("from Student", Student.class);
+				
+		//executing query and get result list
+				
+				List<Student> students = theQuery.getResultList();
+				
+				
+
+		// return the results		
+				
+				return students;
 	}
 
 }

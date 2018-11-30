@@ -14,6 +14,14 @@ public interface StudentDAO {
 	public Student getStudent(int theId);
 
 	public void deleteCustomer(int theId);
+
+	public List<Student> getStudentspend();
+
+	public void rejectCustomer(int theId);
+
+	public void approveCustomer(int theId);
+
+	public List<Student> getStudentsall();
 	
 	
 }
